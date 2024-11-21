@@ -19,3 +19,10 @@ class Profile(models.Model):
 def create_user_profile(sender, instance, created, *args, **kwargs):
     if created:
         Profile.objects.create(user=instance)
+
+
+class Message(models.Model):
+    text = models.TextField()
+    date_time = models.DateTimeField(auto_now_add=True, blank=True)
+    sender = models.ForeignKey(User, related_name='sender', on_delete=models.CASCADE)
+    receiver = models.ForeignKey(User, related_name='receiver', on_delete=models.CASCADE)
